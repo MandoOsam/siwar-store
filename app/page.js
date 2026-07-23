@@ -1,11 +1,10 @@
-import AdminApp from '@/components/admin/AdminApp';
+import StoreApp from '@/components/StoreApp';
 
-// noindex عشان صفحة الأدمن متظهرش في نتائج البحث خالص، ومش متلينكة من أي مكان في المتجر
 export const metadata = {
-  title: 'لوحة تحكم SIWAR',
-  robots: { index: false, follow: false },
+  title: 'SIWAR | سِوار - إكسسوارات نسائية أنيقة',
+  description: 'إكسسوارات نسائية أنيقة - أساور، خواتم، وسلاسل',
 };
 
-export default function AdminPage() {
-  return <AdminApp />;
+export default function HomePage() {
+  return <StoreApp />;
 }

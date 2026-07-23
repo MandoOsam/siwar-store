@@ -24,9 +24,10 @@ export default function CheckoutModal({ onClose }) {
       showToast(t('fillRequired'));
       return;
     }
+    const now = Date.now(); // eslint-disable-line react-hooks/purity
     const order = {
-      id: 'o' + Date.now(),
-      date: new Date().toISOString(),
+      id: 'o' + now,
+      date: new Date(now).toISOString(),
       name: form.name.trim(),
       phone: form.phone.trim(),
       city: form.city.trim(),
