@@ -37,7 +37,13 @@ export default function CheckoutModal({ onClose }) {
       total,
       status: 'جديد',
     };
-    await setOrders([order, ...orders]);
+    const res = await setOrders([order, ...orders]);
+    if (res && res.ok === false) {
+      showToast(lang === 'en'
+        ? '⚠️ Order NOT saved — database is not connected. Contact the store owner.'
+        : '⚠️ الطلب متبعتش — قاعدة البيانات مش متوصلة. لازم صاحبة المتجر تظبط الإعدادات.');
+      return;
+    }
     clearCart();
     onClose();
     showToast(t('orderReceived'));

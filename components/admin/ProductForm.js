@@ -60,7 +60,11 @@ export default function ProductForm({ productId, onClose }) {
     } else {
       next = [...products, { id: 'p' + Date.now(), ...payload }];
     }
-    await setProducts(next);
+    const res = await setProducts(next);
+    if (res && res.ok === false) {
+      showToast(t('saveFailed'));
+      return;
+    }
     showToast(t('saved'));
     onClose();
   };
