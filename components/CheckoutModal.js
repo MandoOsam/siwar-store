@@ -38,9 +38,10 @@ export default function CheckoutModal({ onClose }) {
     };
     const res = await addOrder(order);
     if (res && res.ok === false) {
+      console.error('[submitOrder] insert failed:', res.reason);
       showToast(lang === 'en'
-        ? '⚠️ Order NOT saved — database is not connected. Contact the store owner.'
-        : '⚠️ الطلب متبعتش — قاعدة البيانات مش متوصلة. لازم صاحبة المتجر تظبط الإعدادات.');
+        ? '⚠️ Could not save order. Please try again.'
+        : '⚠️ الطلب متحفظش. حاولي تاني.');
       return;
     }
     clearCart();
