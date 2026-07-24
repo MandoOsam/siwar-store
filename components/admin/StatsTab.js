@@ -13,10 +13,9 @@ export default function StatsTab() {
   const totalOrders = orders.length;
   const totalRevenue = orders.reduce((a, o) => a + o.total_price, 0);
   const avgOrder = totalOrders ? Math.round(totalRevenue / totalOrders) : 0;
-  const deliveredCount = orders.filter((o) => o.status === 'تم التوصيل').length;
 
   const qtyMap = {};
-  orders.forEach((o) => o.items.forEach((i) => { qtyMap[i.name] = (qtyMap[i.name] || 0) + i.qty; }));
+  orders.forEach((o) => (o.item || []).forEach((i) => { qtyMap[i.name] = (qtyMap[i.name] || 0) + i.qty; }));
   const topProducts = Object.entries(qtyMap).sort((a, b) => b[1] - a[1]).slice(0, 5);
   const maxQty = topProducts.length ? topProducts[0][1] : 1;
 
@@ -37,7 +36,6 @@ export default function StatsTab() {
         <div className="stat"><b>{totalOrders}</b><span>{t('totalOrders')}</span></div>
         <div className="stat"><b>{money(totalRevenue, lang)}</b><span>{t('totalSales')}</span></div>
         <div className="stat"><b>{money(avgOrder, lang)}</b><span>{t('avgOrderValue')}</span></div>
-        <div className="stat"><b>{deliveredCount}</b><span>{t('deliveredOrders')}</span></div>
       </div>
 
       <div style={{ display: 'grid', gridTemplateColumns: '1.2fr 1fr', gap: 20, alignItems: 'start' }}>

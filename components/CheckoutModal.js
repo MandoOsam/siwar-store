@@ -28,9 +28,9 @@ export default function CheckoutModal({ onClose }) {
       customer_name: form.name.trim(),
       phone: form.phone.trim(),
       city: form.city.trim(),
-      address: form.address.trim(),
-      notes: form.note.trim(),
-      items: items.map((c) => ({ id: c.id, name: c.p.name, qty: c.qty, price: c.p.price })),
+      adderess: form.address.trim(),
+      note: form.note.trim(),
+      item: items.map((c) => ({ id: c.id, name: c.p.name, qty: c.qty, price: c.p.price })),
       total_price: parseFloat(total) || 0,
     };
     const res = await addOrder(order);
