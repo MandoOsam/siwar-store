@@ -35,10 +35,8 @@ export default function CheckoutModal({ onClose }) {
     };
     const res = await addOrder(order);
     if (res && res.ok === false) {
-      console.error('[submitOrder] insert failed:', res.reason);
-      showToast(lang === 'en'
-        ? '⚠️ Could not save order. Please try again.'
-        : '⚠️ الطلب متحفظش. حاولي تاني.');
+      console.error('Full Supabase Error:', res.error);
+      alert(`Supabase Error: ${res.error?.message || res.error} - Details: ${res.error?.details || 'none'} - Hint: ${res.error?.hint || 'none'}`);
       return;
     }
     clearCart();
