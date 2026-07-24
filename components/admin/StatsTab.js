@@ -11,7 +11,7 @@ export default function StatsTab() {
   const { orders } = useStore();
 
   const totalOrders = orders.length;
-  const totalRevenue = orders.reduce((a, o) => a + o.total, 0);
+  const totalRevenue = orders.reduce((a, o) => a + o.total_price, 0);
   const avgOrder = totalOrders ? Math.round(totalRevenue / totalOrders) : 0;
   const deliveredCount = orders.filter((o) => o.status === 'تم التوصيل').length;
 
@@ -27,7 +27,7 @@ export default function StatsTab() {
     days.push(d);
   }
   const dayLabels = lang === 'en' ? DAY_KEYS_EN : DAY_KEYS_AR;
-  const dayCounts = days.map((d) => orders.filter((o) => new Date(o.date).toDateString() === d.toDateString()).length);
+  const dayCounts = days.map((d) => orders.filter((o) => new Date(o.created_at).toDateString() === d.toDateString()).length);
   const maxDay = Math.max(1, ...dayCounts);
 
   return (

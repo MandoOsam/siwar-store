@@ -7,7 +7,7 @@ import { useToast } from '@/lib/ToastContext';
 
 export default function CheckoutModal({ onClose }) {
   const { t, lang } = useLanguage();
-  const { cart, products, orders, setOrders, clearCart } = useStore();
+  const { cart, products, addOrder, clearCart } = useStore();
   const { showToast } = useToast();
 
   const [form, setForm] = useState({ name: '', phone: '', city: '', address: '', note: '' });
@@ -27,17 +27,16 @@ export default function CheckoutModal({ onClose }) {
     const now = Date.now(); // eslint-disable-line react-hooks/purity
     const order = {
       id: 'o' + now,
-      date: new Date(now).toISOString(),
-      name: form.name.trim(),
+      customer_name: form.name.trim(),
       phone: form.phone.trim(),
       city: form.city.trim(),
       address: form.address.trim(),
-      note: form.note.trim(),
+      notes: form.note.trim(),
       items: items.map((c) => ({ id: c.id, name: c.p.name, qty: c.qty, price: c.p.price })),
-      total,
+      total_price: total,
       status: 'جديد',
     };
-    const res = await setOrders([order, ...orders]);
+    const res = await addOrder(order);
     if (res && res.ok === false) {
       showToast(lang === 'en'
         ? '⚠️ Order NOT saved — database is not connected. Contact the store owner.'

@@ -5,16 +5,15 @@ import { money } from '@/lib/format';
 
 export default function OrdersTab() {
   const { t, lang } = useLanguage();
-  const { orders, setOrders } = useStore();
+  const { orders, updateOrder, removeOrder } = useStore();
 
   const newCount = orders.filter((o) => o.status === 'جديد').length;
 
   const markDone = async (id) => {
-    const next = orders.map((o) => (o.id === id ? { ...o, status: 'تم التوصيل' } : o));
-    await setOrders(next);
+    await updateOrder(id, 'تم التوصيل');
   };
   const remove = async (id) => {
-    await setOrders(orders.filter((o) => o.id !== id));
+    await removeOrder(id);
   };
 
   return (
@@ -22,7 +21,7 @@ export default function OrdersTab() {
       <div className="stat-cards">
         <div className="stat"><b>{orders.length}</b><span>{t('totalOrders')}</span></div>
         <div className="stat"><b>{newCount}</b><span>{t('newOrders')}</span></div>
-        <div className="stat"><b>{money(orders.reduce((a, o) => a + o.total, 0), lang)}</b><span>{t('totalSales')}</span></div>
+        <div className="stat"><b>{money(orders.reduce((a, o) => a + o.total_price, 0), lang)}</b><span>{t('totalSales')}</span></div>
       </div>
       <h2 style={{ marginTop: 0 }}>{t('orders')}</h2>
       {orders.length === 0 ? (
@@ -44,12 +43,12 @@ export default function OrdersTab() {
               const isNew = o.status === 'جديد';
               return (
                 <tr key={o.id}>
-                  <td>{o.name}<div style={{ color: 'var(--muted)', fontSize: 12 }}>{o.city || ''}</div></td>
+                  <td>{o.customer_name}<div style={{ color: 'var(--muted)', fontSize: 12 }}>{o.city || ''}</div></td>
                   <td>{o.phone}</td>
                   <td style={{ fontSize: 12.5, color: 'var(--muted)' }}>
                     {o.items.map((i) => `${i.name} ×${i.qty}`).join('، ')}
                   </td>
-                  <td>{money(o.total, lang)}</td>
+                  <td>{money(o.total_price, lang)}</td>
                   <td>
                     <span className={`status-pill ${isNew ? 'status-new' : 'status-done'}`}>
                       {isNew ? t('statusNew') : t('statusDone')}
