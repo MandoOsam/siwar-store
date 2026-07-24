@@ -24,17 +24,14 @@ export default function CheckoutModal({ onClose }) {
       showToast(t('fillRequired'));
       return;
     }
-    const now = Date.now(); // eslint-disable-line react-hooks/purity
     const order = {
-      id: 'o' + now,
       customer_name: form.name.trim(),
       phone: form.phone.trim(),
       city: form.city.trim(),
       address: form.address.trim(),
       notes: form.note.trim(),
       items: items.map((c) => ({ id: c.id, name: c.p.name, qty: c.qty, price: c.p.price })),
-      total_price: total,
-      status: 'جديد',
+      total_price: parseFloat(total) || 0,
     };
     const res = await addOrder(order);
     if (res && res.ok === false) {
