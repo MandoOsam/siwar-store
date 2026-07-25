@@ -7,6 +7,7 @@ import { ToastProvider } from '@/lib/ToastContext';
 export const metadata = {
   title: 'SIWAR | سِوار',
   description: 'إكسسوارات نسائية أنيقة - أساور، خواتم، وسلاسل',
+  icons: { icon: '/logo.png' },
 };
 
 export default function RootLayout({ children }) {

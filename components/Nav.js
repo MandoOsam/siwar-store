@@ -13,7 +13,8 @@ export default function Nav({ searchQuery, onSearch, onCartClick }) {
     <div className="nav">
       <div className="nav-inner">
         <a href="/" className="logo">
-          SIWAR <span className="ar">{t('brand')}</span>
+          <img src="/logo.png" alt="SIWAR" />
+          <span className="ar">{t('brand')}</span>
         </a>
         <div className="search-wrap">
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#66738C" strokeWidth="2">

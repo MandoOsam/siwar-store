@@ -8,6 +8,7 @@ import CartDrawer from './CartDrawer';
 import ProductModal from './ProductModal';
 import CheckoutModal from './CheckoutModal';
 import Footer from './Footer';
+import SocialLinks from './SocialLinks';
 import WhatsAppFloat from './WhatsAppFloat';
 import SetupBanner from './SetupBanner';
 import { useStore } from '@/lib/StoreContext';
@@ -69,6 +70,7 @@ export default function StoreApp() {
           emptyIsSearch={!!searchQuery.trim()}
         />
       </div>
+      <SocialLinks />
       <Footer />
       <WhatsAppFloat />
       {showCart && (

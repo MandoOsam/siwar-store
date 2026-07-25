@@ -11,6 +11,8 @@ export default function Hero() {
 
   return (
     <section className="hero">
+      <div className="hero-bg" />
+      <div className="hero-overlay" />
       <div className="hero-inner">
         <div>
           <div className="eyebrow">{t('heroEyebrow')}</div>
