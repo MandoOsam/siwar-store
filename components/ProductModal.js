@@ -21,22 +21,26 @@ export default function ProductModal({ product, onClose }) {
 
   return (
     <div className="overlay" onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}>
-      <div className="sheet">
+      <div className="sheet product-modal">
         <button className="close-x" onClick={onClose}>✕</button>
-        <div className="card-img" style={{ borderRadius: 14, marginBottom: 16 }}>
-          {product.image ? <img src={product.image} alt={product.name} /> : <PlaceholderImg />}
+        <div className="modal-body">
+          <div className="modal-img">
+            {product.image ? <img src={product.image} alt={product.name} /> : <PlaceholderImg />}
+          </div>
+          <div className="modal-info">
+            <div className="card-cat">{product.category || ''}</div>
+            <h2>{product.name}</h2>
+            <div className="card-price modal-price">{money(product.price, lang)}</div>
+            <p className="modal-desc">{product.description || ''}</p>
+            {out ? (
+              <div className="out-tag modal-out">{t('outOfStock')}</div>
+            ) : (
+              <button className="btn-primary modal-add" onClick={handleAdd}>
+                {t('addToCart')}
+              </button>
+            )}
+          </div>
         </div>
-        <div className="card-cat">{product.category || ''}</div>
-        <h2 style={{ margin: '6px 0' }}>{product.name}</h2>
-        <div className="card-price" style={{ fontSize: 19, marginBottom: 10 }}>{money(product.price, lang)}</div>
-        <p style={{ color: 'var(--muted)', lineHeight: 1.8, fontSize: 14.5 }}>{product.description || ''}</p>
-        {out ? (
-          <div className="out-tag" style={{ marginTop: 14 }}>{t('outOfStock')}</div>
-        ) : (
-          <button className="btn-primary" style={{ width: '100%', justifyContent: 'center', marginTop: 16 }} onClick={handleAdd}>
-            {t('addToCart')}
-          </button>
-        )}
       </div>
     </div>
   );
