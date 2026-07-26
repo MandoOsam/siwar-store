@@ -13,6 +13,13 @@ export default function ProductModal({ product, onClose }) {
   if (!product) return null;
   const out = Number(product.stock) <= 0;
 
+  const images = product.images?.length
+    ? product.images
+    : product.image
+      ? [product.image]
+      : [];
+  const mainImage = images[0] || null;
+
   const handleAdd = () => {
     addToCart(product.id);
     showToast(lang === 'ar' ? 'اتضاف للسلة ✓' : 'Added to cart ✓');
@@ -25,7 +32,7 @@ export default function ProductModal({ product, onClose }) {
         <button className="close-x" onClick={onClose}>✕</button>
         <div className="modal-body">
           <div className="modal-img">
-            {product.image ? <img src={product.image} alt={product.name} /> : <PlaceholderImg />}
+            {mainImage ? <img src={mainImage} alt={product.name} /> : <PlaceholderImg />}
           </div>
           <div className="modal-info">
             <div className="card-cat">{product.category || ''}</div>

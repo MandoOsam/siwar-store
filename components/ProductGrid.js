@@ -2,7 +2,7 @@
 import ProductCard from './ProductCard';
 import { useLanguage } from '@/lib/i18n';
 
-export default function ProductGrid({ products, onProductClick, emptyIsSearch }) {
+export default function ProductGrid({ products, emptyIsSearch }) {
   const { t } = useLanguage();
 
   if (products.length === 0) {
@@ -16,7 +16,7 @@ export default function ProductGrid({ products, onProductClick, emptyIsSearch })
   return (
     <div className="grid">
       {products.map((p) => (
-        <ProductCard key={p.id} product={p} onClick={() => onProductClick(p.id)} />
+        <ProductCard key={p.id} product={p} />
       ))}
     </div>
   );

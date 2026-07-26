@@ -24,7 +24,7 @@ export default function CartDrawer({ onClose, onCheckout }) {
           items.map((c) => (
             <div key={c.id} style={{ display: 'flex', gap: 12, alignItems: 'center', padding: '12px 0', borderBottom: '1px solid var(--line)' }}>
               <div style={{ width: 56, height: 56, borderRadius: 10, overflow: 'hidden', background: 'var(--surface-2)', flexShrink: 0 }}>
-                {c.p.image ? <img src={c.p.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <PlaceholderImg />}
+                {(c.p.images?.[0] || c.p.image) ? <img src={c.p.images?.[0] || c.p.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : <PlaceholderImg />}
               </div>
               <div style={{ flex: 1 }}>
                 <div style={{ fontSize: 14.5 }}>{c.p.name}</div>

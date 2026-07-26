@@ -39,7 +39,7 @@ export default function ProductsTab() {
             <tr key={p.id}>
               <td>
                 <div style={{ width: 44, height: 44, borderRadius: 8, overflow: 'hidden', background: 'var(--surface-2)' }}>
-                  {p.image && <img src={p.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+                  {p.images?.[0] || p.image ? <img src={p.images?.[0] || p.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} /> : null}
                 </div>
               </td>
               <td>{p.name}</td>

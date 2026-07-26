@@ -13,17 +13,29 @@ export default function ProductForm({ productId, onClose }) {
   const editing = productId && productId !== 'new';
   const existing = editing ? products.find((p) => p.id === productId) : null;
 
+  const existingImages = existing?.images?.length
+    ? existing.images
+    : existing?.image
+      ? [existing.image]
+      : [];
+
   const [form, setForm] = useState({
     name: existing?.name || '',
     price: existing?.price ?? '',
     stock: existing?.stock ?? '',
     category: existing?.category || '',
-    image: existing?.image || '',
     description: existing?.description || '',
   });
-  const [uploadStatus, setUploadStatus] = useState(form.image ? '' : t('orUseUrl'));
+  const [images, setImages] = useState(existingImages);
+  const [uploadStatus, setUploadStatus] = useState('');
 
   const update = (key) => (e) => setForm((f) => ({ ...f, [key]: e.target.value }));
+
+  const addImage = () => setImages((prev) => [...prev, '']);
+
+  const removeImage = (idx) => setImages((prev) => prev.filter((_, i) => i !== idx));
+
+  const updateImage = (idx, val) => setImages((prev) => prev.map((v, i) => (i === idx ? val : v)));
 
   const handleFile = async (e) => {
     const file = e.target.files[0];
@@ -31,7 +43,7 @@ export default function ProductForm({ productId, onClose }) {
     setUploadStatus(t('uploading'));
     const res = await uploadImageToImgBB(file);
     if (res.ok) {
-      setForm((f) => ({ ...f, image: res.url }));
+      setImages((prev) => [...prev, res.url]);
       setUploadStatus(t('uploaded'));
     } else if (res.reason === 'no-key') {
       showToast(t('imgbbMissing'));
@@ -46,12 +58,14 @@ export default function ProductForm({ productId, onClose }) {
       showToast(t('nameRequired'));
       return;
     }
+    const cleanImages = images.filter((u) => u && u.trim());
     const payload = {
       name: form.name.trim(),
       price: parseFloat(form.price) || 0,
       stock: parseInt(form.stock, 10) || 0,
       category: form.category.trim(),
-      image: form.image.trim(),
+      image: cleanImages[0] || '',
+      images: cleanImages,
       description: form.description.trim(),
     };
     let next;
@@ -97,19 +111,31 @@ export default function ProductForm({ productId, onClose }) {
         </div>
 
         <div className="field">
-          <label>{t('productImage')}</label>
-          <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
-            <div style={{ width: 64, height: 64, borderRadius: 10, overflow: 'hidden', background: 'var(--surface-2)', border: '1px solid var(--line)', flexShrink: 0 }}>
-              {form.image && <img src={form.image} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
-            </div>
-            <div style={{ flex: 1 }}>
-              <input type="file" accept="image/*" onChange={handleFile} />
-              <div style={{ color: 'var(--muted)', fontSize: 12, marginTop: 4 }}>{uploadStatus}</div>
-            </div>
+          <label>{t('productImages')}</label>
+          <div className="images-list">
+            {images.map((url, idx) => (
+              <div key={idx} className="image-row">
+                <div className="image-thumb">
+                  {url ? <img src={url} alt="" /> : <span className="image-thumb-empty">{idx + 1}</span>}
+                </div>
+                <input
+                  className="image-url-input"
+                  value={url}
+                  onChange={(e) => updateImage(idx, e.target.value)}
+                  placeholder="https://..."
+                />
+                <button className="icon-btn image-remove-btn" onClick={() => removeImage(idx)}>✕</button>
+              </div>
+            ))}
           </div>
-        </div>
-        <div className="field">
-          <input value={form.image} onChange={update('image')} placeholder="https://..." />
+          <div className="image-actions">
+            <button className="btn-ghost" type="button" onClick={addImage}>+ {t('addImage')}</button>
+            <label className="btn-ghost image-upload-label">
+              {t('uploadImage')}
+              <input type="file" accept="image/*" onChange={handleFile} style={{ display: 'none' }} />
+            </label>
+          </div>
+          {uploadStatus && <div style={{ color: 'var(--muted)', fontSize: 12, marginTop: 4 }}>{uploadStatus}</div>}
         </div>
 
         <div className="field">

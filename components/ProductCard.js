@@ -1,16 +1,25 @@
 'use client';
+import { useRouter } from 'next/navigation';
 import { PlaceholderImg } from './BangleIcon';
 import { useLanguage } from '@/lib/i18n';
 import { money } from '@/lib/format';
 
-export default function ProductCard({ product, onClick }) {
+export default function ProductCard({ product }) {
   const { t, lang } = useLanguage();
+  const router = useRouter();
   const out = Number(product.stock) <= 0;
 
+  const images = product.images?.length
+    ? product.images
+    : product.image
+      ? [product.image]
+      : [];
+  const thumb = images[0] || null;
+
   return (
-    <div className="card" onClick={onClick}>
+    <div className="card" onClick={() => router.push(`/product/${product.id}`)}>
       <div className="card-img">
-        {product.image ? <img src={product.image} alt={product.name} /> : <PlaceholderImg />}
+        {thumb ? <img src={thumb} alt={product.name} /> : <PlaceholderImg />}
       </div>
       <div className="card-body">
         <div className="card-cat">{product.category || ''}</div>

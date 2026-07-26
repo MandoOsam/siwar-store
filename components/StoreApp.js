@@ -5,7 +5,6 @@ import Hero from './Hero';
 import FiltersBar from './FiltersBar';
 import ProductGrid from './ProductGrid';
 import CartDrawer from './CartDrawer';
-import ProductModal from './ProductModal';
 import CheckoutModal from './CheckoutModal';
 import Footer from './Footer';
 import SocialLinks from './SocialLinks';
@@ -21,7 +20,6 @@ export default function StoreApp() {
   const [sortBy, setSortBy] = useState('latest');
   const [priceMin, setPriceMin] = useState('');
   const [priceMax, setPriceMax] = useState('');
-  const [selectedProductId, setSelectedProductId] = useState(null);
   const [showCart, setShowCart] = useState(false);
   const [showCheckout, setShowCheckout] = useState(false);
 
@@ -38,10 +36,6 @@ export default function StoreApp() {
     priceMax,
     sortBy,
   });
-
-  const selectedProduct = selectedProductId
-    ? products.find((p) => p.id === selectedProductId)
-    : null;
 
   return (
     <>
@@ -60,13 +54,12 @@ export default function StoreApp() {
           sortBy={sortBy}
           onSortChange={setSortBy}
           priceMin={priceMin}
-          priceMax={priceMax}
           onPriceMinChange={setPriceMin}
+          priceMax={priceMax}
           onPriceMaxChange={setPriceMax}
         />
         <ProductGrid
           products={displayed}
-          onProductClick={setSelectedProductId}
           emptyIsSearch={!!searchQuery.trim()}
         />
       </div>
@@ -77,12 +70,6 @@ export default function StoreApp() {
         <CartDrawer
           onClose={() => setShowCart(false)}
           onCheckout={() => { setShowCart(false); setShowCheckout(true); }}
-        />
-      )}
-      {selectedProduct && (
-        <ProductModal
-          product={selectedProduct}
-          onClose={() => setSelectedProductId(null)}
         />
       )}
       {showCheckout && (
