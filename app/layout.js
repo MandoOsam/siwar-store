@@ -41,11 +41,11 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ar" dir="rtl">
+    <html lang="en" dir="ltr">
       <head>
         <script
           dangerouslySetInnerHTML={{
-            __html: `try{var t=localStorage.getItem('siwar_theme');if(t!=='light')document.body.classList.add('dark-mode')}catch(e){document.body.classList.add('dark-mode')}`,
+            __html: `try{var t=localStorage.getItem('siwar_theme');if(t!=='light')document.body.classList.add('dark-mode')}catch(e){document.body.classList.add('dark-mode')}try{var l=localStorage.getItem('siwar_lang');if(l==='ar'){document.documentElement.lang='ar';document.documentElement.dir='rtl'}}catch(e){}`,
           }}
         />
       </head>
