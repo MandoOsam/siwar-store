@@ -60,37 +60,17 @@ button{font-family:inherit;cursor:pointer;}
 .badge{position:absolute;top:-6px;left:-6px;background:var(--gold);color:#000;font-size:10px;min-width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 
 /* HERO */
-.hero{position:relative;padding:0;overflow:hidden;min-height:85vh;display:flex;align-items:center;}
-.hero-bg{position:absolute;inset:0;background:#0D0D0D;animation:kenBurns 25s ease-in-out infinite alternate;overflow:hidden;}
-@keyframes kenBurns{
-  0%{transform:scale(1);}
-  100%{transform:scale(1.08);}
-}
-.hero-art{width:130%;height:130%;position:absolute;top:-15%;left:-15%;animation:artDrift 30s ease-in-out infinite alternate;}
-@keyframes artDrift{
-  0%{transform:translate(0,0) rotate(0deg);}
-  100%{transform:translate(-25px,12px) rotate(1.5deg);}
-}
-.hero-ring{animation:ringPulse 6s ease-in-out infinite;}
-.hero-ring:nth-child(4){animation-delay:-3s;}
-@keyframes ringPulse{
-  0%,100%{opacity:0.18;}
-  50%{opacity:0.28;}
-}
-.hero-ring-dashed{animation:ringRotate 60s linear infinite;transform-origin:820px 400px;}
-@keyframes ringRotate{to{transform:rotate(360deg);}}
-.hero-dot{animation:dotPulse 4s ease-in-out infinite;}
-.hero-dot:nth-child(odd){animation-delay:-2s;}
-.hero-dot:nth-child(3n){animation-delay:-1s;animation-duration:5s;}
-@keyframes dotPulse{
-  0%,100%{opacity:0.15;}
-  50%{opacity:0.45;}
-}
-.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.5) 40%,rgba(0,0,0,.15) 100%);z-index:1;}
-.hero-inner{position:relative;z-index:2;max-width:1120px;margin:0 auto;display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center;padding:80px 20px 60px;width:100%;}
+.hero{position:relative;padding:0;overflow:hidden;min-height:85vh;display:flex;align-items:center;background:#0D0D0D url('/images/hero-poster.jpg') center/cover no-repeat;}
+.hero-video-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;}
+.hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(11,18,32,.88) 0%,rgba(11,18,32,.55) 40%,rgba(11,18,32,.15) 100%);z-index:1;}
+body.dark-mode .hero-overlay{background:linear-gradient(to top,rgba(11,18,32,.92) 0%,rgba(11,18,32,.7) 40%,rgba(11,18,32,.25) 100%);}
+.hero-inner{position:relative;z-index:2;max-width:1120px;margin:0 auto;padding:80px 20px 60px;width:100%;}
 @media(max-width:860px){
   .hero{min-height:70vh;}
-  .hero-inner{grid-template-columns:1fr;padding:60px 20px 40px;}
+  .hero-inner{padding:60px 20px 40px;}
+}
+@media(max-width:700px){
+  .hero-video-bg{display:none;}
 }
 .eyebrow{color:var(--gold-soft);font-size:13px;letter-spacing:3px;margin-bottom:14px;text-transform:uppercase;}
 .hero h1{font-size:56px;line-height:1.15;margin:0 0 18px;color:#FFFFFF;}
@@ -102,7 +82,6 @@ button{font-family:inherit;cursor:pointer;}
 .btn-ghost{border:1px solid var(--line);background:transparent;color:var(--cream);padding:13px 26px;border-radius:999px;font-size:15px;}
 .btn-ghost:hover{border-color:var(--gold);}
 
-.bangle-wrap{display:flex;align-items:center;justify-content:center;}
 .spin{animation:spin 40s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 
@@ -141,6 +120,7 @@ button{font-family:inherit;cursor:pointer;}
 .card-cat{font-size:11px;color:var(--copper);letter-spacing:1px;margin-bottom:6px;}
 .card-name{font-size:16.5px;color:var(--cream);margin-bottom:8px;}
 .card-price{color:var(--gold-soft);font-weight:700;font-size:15px;}
+.price-old{text-decoration:line-through;color:var(--muted);font-size:13px;font-weight:400;margin-inline-end:8px;}
 .out-tag{display:inline-block;margin-top:8px;font-size:11px;color:var(--danger);border:1px solid var(--danger);padding:2px 8px;border-radius:999px;}
 
 .empty{text-align:center;padding:70px 20px;color:var(--muted);}
@@ -303,7 +283,6 @@ footer a{color:var(--gold-soft);}
   .card-name{font-size:13px;margin-bottom:6px;line-height:1.35;}
   .card-price{font-size:13px;}
   .out-tag{font-size:10px;padding:2px 6px;margin-top:6px;}
-  .bangle-wrap{display:none;}
   .hero-inner{padding:60px 16px 36px;}
   .social-card{padding:12px 16px;font-size:13px;}
   .social-card .social-value{font-size:12px;}

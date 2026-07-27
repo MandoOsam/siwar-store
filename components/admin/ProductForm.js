@@ -22,6 +22,7 @@ export default function ProductForm({ productId, onClose }) {
   const [form, setForm] = useState({
     name: existing?.name || '',
     price: existing?.price ?? '',
+    oldPrice: existing?.oldPrice ?? '',
     stock: existing?.stock ?? '',
     category: existing?.category || '',
     description: existing?.description || '',
@@ -62,6 +63,7 @@ export default function ProductForm({ productId, onClose }) {
     const payload = {
       name: form.name.trim(),
       price: parseFloat(form.price) || 0,
+      oldPrice: parseFloat(form.oldPrice) || null,
       stock: parseInt(form.stock, 10) || 0,
       category: form.category.trim(),
       image: cleanImages[0] || '',
@@ -103,6 +105,11 @@ export default function ProductForm({ productId, onClose }) {
             <label>{t('availableStock')}</label>
             <input type="number" value={form.stock} onChange={update('stock')} />
           </div>
+        </div>
+
+        <div className="field">
+          <label>{t('oldPriceOptional')}</label>
+          <input type="number" value={form.oldPrice} onChange={update('oldPrice')} placeholder="—" />
         </div>
 
         <div className="field">

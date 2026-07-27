@@ -99,7 +99,12 @@ export default function ProductDetailPage({ params }) {
           <div className="product-detail-info">
             <div className="card-cat">{product.category || ''}</div>
             <h1 className="product-detail-name">{product.name}</h1>
-            <div className="card-price product-detail-price">{money(product.price, lang)}</div>
+            <div className="card-price product-detail-price">
+              {product.oldPrice > product.price && (
+                <span className="price-old">{money(product.oldPrice, lang)}</span>
+              )}
+              {money(product.price, lang)}
+            </div>
             {product.description && (
               <p className="product-detail-desc">{product.description}</p>
             )}

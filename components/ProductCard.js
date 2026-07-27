@@ -24,7 +24,12 @@ export default function ProductCard({ product }) {
       <div className="card-body">
         <div className="card-cat">{product.category || ''}</div>
         <div className="card-name">{product.name}</div>
-        <div className="card-price">{money(product.price, lang)}</div>
+        <div className="card-price">
+          {product.oldPrice > product.price && (
+            <span className="price-old">{money(product.oldPrice, lang)}</span>
+          )}
+          {money(product.price, lang)}
+        </div>
         {out && <div className="out-tag">{t('outOfStock')}</div>}
       </div>
     </div>
