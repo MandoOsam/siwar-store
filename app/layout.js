@@ -42,6 +42,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ar" dir="rtl">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `try{var t=localStorage.getItem('siwar_theme');if(t!=='light')document.body.classList.add('dark-mode')}catch(e){document.body.classList.add('dark-mode')}`,
+          }}
+        />
+      </head>
       <body className={`${playfair.variable} ${arefRuqaa.variable} ${tajawal.variable} ${inter.variable}`}>
         <ThemeProvider>
           <LanguageProvider>
