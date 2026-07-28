@@ -8,7 +8,7 @@ import CartDrawer from './CartDrawer';
 import CheckoutModal from './CheckoutModal';
 import Footer from './Footer';
 import SocialLinks from './SocialLinks';
-import WhatsAppFloat from './WhatsAppFloat';
+import SocialFloat from './SocialFloat';
 import SetupBanner from './SetupBanner';
 import { useStore } from '@/lib/StoreContext';
 import { getCategories, filterAndSortProducts } from '@/lib/filters';
@@ -65,7 +65,7 @@ export default function StoreApp() {
       </div>
       <SocialLinks />
       <Footer />
-      <WhatsAppFloat />
+      <SocialFloat />
       {showCart && (
         <CartDrawer
           onClose={() => setShowCart(false)}

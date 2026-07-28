@@ -6,7 +6,7 @@ import { useStore } from '@/lib/StoreContext';
 
 export default function CartDrawer({ onClose, onCheckout }) {
   const { t, lang } = useLanguage();
-  const { cart, products, changeQty } = useStore();
+  const { cart, products, changeQty, orderNote, setOrderNote } = useStore();
 
   const items = cart
     .map((c) => ({ ...c, p: products.find((p) => p.id === c.id) }))
@@ -40,6 +40,16 @@ export default function CartDrawer({ onClose, onCheckout }) {
         )}
         {items.length > 0 && (
           <>
+            <div style={{ padding: '16px 0 0' }}>
+              <label style={{ display: 'block', fontSize: 13, color: 'var(--muted)', marginBottom: 6 }}>{t('cartNotesLabel')}</label>
+              <textarea
+                rows={2}
+                value={orderNote}
+                onChange={(e) => setOrderNote(e.target.value)}
+                placeholder={t('cartNotesPlaceholder')}
+                style={{ width: '100%', padding: '10px 12px', borderRadius: 8, border: '1px solid var(--line)', background: 'var(--surface-2)', color: 'var(--cream)', fontFamily: 'inherit', fontSize: 14, resize: 'vertical' }}
+              />
+            </div>
             <div style={{ display: 'flex', justifyContent: 'space-between', padding: '16px 0', fontSize: 16 }}>
               <b>{t('total')}</b>
               <b style={{ color: 'var(--gold-soft)' }}>{money(total, lang)}</b>

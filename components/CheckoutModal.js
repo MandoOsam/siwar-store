@@ -7,10 +7,10 @@ import { useToast } from '@/lib/ToastContext';
 
 export default function CheckoutModal({ onClose }) {
   const { t, lang } = useLanguage();
-  const { cart, products, addOrder, clearCart } = useStore();
+  const { cart, products, addOrder, clearCart, orderNote, clearOrderNote } = useStore();
   const { showToast } = useToast();
 
-  const [form, setForm] = useState({ name: '', phone: '', city: '', address: '', note: '' });
+  const [form, setForm] = useState({ name: '', phone: '', city: '', address: '', note: orderNote });
 
   const items = cart
     .map((c) => ({ ...c, p: products.find((p) => p.id === c.id) }))
@@ -40,6 +40,7 @@ export default function CheckoutModal({ onClose }) {
       return;
     }
     clearCart();
+    clearOrderNote();
     onClose();
     showToast(t('orderReceived'));
   };
