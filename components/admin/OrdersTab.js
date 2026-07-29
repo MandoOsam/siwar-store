@@ -104,6 +104,7 @@ export default function OrdersTab() {
                   <span>{o.phone}</span>
                   {o.city && <span>{o.city}</span>}
                   {o.adderess && <span>{o.adderess}</span>}
+                  {o.note && <span style={{color:'var(--muted)',fontStyle:'italic'}}>🗒 {o.note}</span>}
                 </div>
               </div>
               <div className="order-actions">
